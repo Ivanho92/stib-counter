@@ -120,6 +120,7 @@ const Form = () => {
                                     onBlur={blurHandler}
                                     size="small"
                                     {...params}
+                                    sx={{ backgroundColor: "white" }}
                                     error={!dateTimeIsValid && dateTimeIsTouched}
                                     helperText={!dateTimeIsValid && dateTimeIsTouched && "Date is not valid"}
                                 />
@@ -136,7 +137,9 @@ const Form = () => {
                 </Box>
             )}
 
-            <Button fullWidth={!matchesTabletSize} onClick={toggleManualInput}>{showManualInput ? "Close" : "Switch to Manual Mode"}</Button>
+            <Button fullWidth={!matchesTabletSize} onClick={toggleManualInput}>
+                {showManualInput ? "Close" : "Switch to Manual Mode"}
+            </Button>
         </Box>
     );
 };
