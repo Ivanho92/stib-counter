@@ -13,6 +13,7 @@ main {
     flex-grow: 1;
 }
 
-.css-dzkm8o-MuiInputBase-root-MuiOutlinedInput-root {
+.css-dzkm8o-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1yqi2f0-MuiInputBase-root-MuiOutlinedInput-root {
     background-color: white;
-  }
+}
