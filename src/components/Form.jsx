@@ -10,6 +10,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+import styles from "./Form.module.css";
+
 const dateTimeFormat = "DD/MM/YYYY - HH:mm";
 
 const isDateValid = (dateTimeValue) => {
@@ -108,27 +110,32 @@ const Form = () => {
                         gap: "1rem",
                     }}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker
-                            label="Select a date"
-                            value={dateTimeValue}
-                            inputFormat={dateTimeFormat}
-                            ampm={false}
-                            onChange={changeHandler}
-                            renderInput={(params) => (
-                                <TextField
-                                    fullWidth={!matchesTabletSize}
-                                    onBlur={blurHandler}
-                                    size="small"
-                                    {...params}
-                                    sx={{ backgroundColor: "white" }}
-                                    error={!dateTimeIsValid && dateTimeIsTouched}
-                                    helperText={!dateTimeIsValid && dateTimeIsTouched && "Date is not valid"}
-                                />
-                            )}
-                            componentsProps={{
-                                actionBar: { actions: ["clear", "accept"] },
-                            }}
-                        />
+                        <Box
+                            sx={{
+                                width: matchesTabletSize ? "auto" : "100%",
+                            }}>
+                            <DateTimePicker
+                                label="Select a date"
+                                value={dateTimeValue}
+                                inputFormat={dateTimeFormat}
+                                ampm={false}
+                                onChange={changeHandler}
+                                renderInput={(params) => (
+                                    <TextField
+                                        fullWidth={!matchesTabletSize}
+                                        onBlur={blurHandler}
+                                        size="small"
+                                        {...params}
+                                        sx={{ backgroundColor: "white" }}
+                                        error={!dateTimeIsValid && dateTimeIsTouched}
+                                    />
+                                )}
+                                componentsProps={{
+                                    actionBar: { actions: ["clear", "accept"] },
+                                }}
+                            />
+                            {!dateTimeIsValid && dateTimeIsTouched && <p className={styles["error-text"]}>Date is not valid</p>}
+                        </Box>
                     </LocalizationProvider>
 
                     <Button type="submit" variant="contained" fullWidth={!matchesTabletSize}>
