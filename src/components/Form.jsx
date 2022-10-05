@@ -2,13 +2,15 @@ import { useState, useContext } from "react";
 import { TravelsContext } from "../store/travels-context";
 
 import dayjs from "dayjs";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, Typography } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import styles from "./Form.module.css";
 
 const dateTimeFormat = "DD/MM/YYYY - HH:mm";
 
@@ -108,27 +110,36 @@ const Form = () => {
                         gap: "1rem",
                     }}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker
-                            label="Select a date"
-                            value={dateTimeValue}
-                            inputFormat={dateTimeFormat}
-                            ampm={false}
-                            onChange={changeHandler}
-                            renderInput={(params) => (
-                                <TextField
-                                    fullWidth={!matchesTabletSize}
-                                    onBlur={blurHandler}
-                                    size="small"
-                                    {...params}
-                                    sx={{ backgroundColor: "white" }}
-                                    error={!dateTimeIsValid && dateTimeIsTouched}
-                                    helperText={!dateTimeIsValid && dateTimeIsTouched && "Date is not valid"}
-                                />
+                        <Box
+                            sx={{
+                                width: matchesTabletSize ? "auto" : "100%",
+                            }}>
+                            <DateTimePicker
+                                label="Select a date"
+                                value={dateTimeValue}
+                                inputFormat={dateTimeFormat}
+                                ampm={false}
+                                onChange={changeHandler}
+                                renderInput={(params) => (
+                                    <TextField
+                                        fullWidth={!matchesTabletSize}
+                                        onBlur={blurHandler}
+                                        size="small"
+                                        {...params}
+                                        sx={{ backgroundColor: "white" }}
+                                        error={!dateTimeIsValid && dateTimeIsTouched}
+                                    />
+                                )}
+                                componentsProps={{
+                                    actionBar: { actions: ["clear", "accept"] },
+                                }}
+                            />
+                            {!dateTimeIsValid && dateTimeIsTouched && (
+                                <Typography variant="body2" className={styles["error-text"]}>
+                                    Date is not valid
+                                </Typography>
                             )}
-                            componentsProps={{
-                                actionBar: { actions: ["clear", "accept"] },
-                            }}
-                        />
+                        </Box>
                     </LocalizationProvider>
 
                     <Button type="submit" variant="contained" fullWidth={!matchesTabletSize}>
