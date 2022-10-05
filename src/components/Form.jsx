@@ -7,7 +7,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const dateTimeFormat = "DD/MM/YYYY - HH:mm";
 
@@ -21,9 +22,9 @@ const isDateValid = (dateTimeValue) => {
 
 const Form = () => {
     const { setTravelsList } = useContext(TravelsContext);
-    const theme = useTheme();
 
-    console.log(theme);
+    const theme = useTheme();
+    const matchesTabletSize = useMediaQuery(theme.breakpoints.up("tablet"));
 
     const [showManualInput, setShowManualInput] = useState(false);
     const [dateTimeValue, setDateTimeValue] = useState(null);
@@ -39,16 +40,23 @@ const Form = () => {
     const resetForm = () => {
         setDateTimeValue(null);
         setDateTimeIsTouched(false);
-    }
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        let value = dayjs();
-        if (showManualInput && dateTimeIsValid) {
-            value = dateTimeValue;
+        if (showManualInput) {
+            setDateTimeIsTouched(true);
 
-            resetForm();    
+            if (!dateTimeIsValid) {
+                return;
+            }
+        }
+
+        let value = dayjs();
+        if (showManualInput) {
+            value = dateTimeValue;
+            resetForm();
         }
 
         setTravelsList((prevState) => [value.format(dateTimeFormat), ...prevState]);
@@ -68,14 +76,18 @@ const Form = () => {
         <Box
             sx={{
                 display: "flex",
+                flexDirection: matchesTabletSize ? "row" : "column",
+                // width: matchesTabletSize ? "auto" : "100%",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
                 p: 2,
                 backgroundColor: theme.palette.grey[100],
                 borderRadius: "6px",
+                flexWrap: "wrap",
+                gap: "1rem",
             }}>
             {!showManualInput && (
-                <Button type="submit" onClick={submitHandler} variant="contained">
+                <Button type="submit" onClick={submitHandler} variant="contained" fullWidth={!matchesTabletSize}>
                     Add travel
                 </Button>
             )}
@@ -87,19 +99,24 @@ const Form = () => {
                     onSubmit={submitHandler}
                     sx={{
                         display: "flex",
-                        justifyContent: "space-between",
-                        gap: "1rem",
+                        flexGrow: 1,
+                        width: matchesTabletSize ? "auto" : "100%",
+                        flexDirection: matchesTabletSize ? "row" : "column",
+                        // justifyContent: "space-between",
                         alignItems: "start",
+                        flexWrap: "wrap",
+                        gap: "1rem",
                     }}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
-                            label="Travel date"
+                            label="Select a date"
                             value={dateTimeValue}
                             inputFormat={dateTimeFormat}
                             ampm={false}
                             onChange={changeHandler}
                             renderInput={(params) => (
                                 <TextField
+                                    fullWidth={!matchesTabletSize}
                                     onBlur={blurHandler}
                                     size="small"
                                     {...params}
@@ -108,18 +125,18 @@ const Form = () => {
                                 />
                             )}
                             componentsProps={{
-                                actionBar: { actions: ["clear", "today"] },
+                                actionBar: { actions: ["clear", "accept"] },
                             }}
                         />
                     </LocalizationProvider>
 
-                    <Button type="submit" variant="contained">
+                    <Button type="submit" variant="contained" fullWidth={!matchesTabletSize}>
                         Add travel
                     </Button>
                 </Box>
             )}
 
-            <Button onClick={toggleManualInput}>{showManualInput ? "Close" : "Enter a manual date"}</Button>
+            <Button fullWidth={!matchesTabletSize} onClick={toggleManualInput}>{showManualInput ? "Close" : "Switch to Manual Mode"}</Button>
         </Box>
     );
 };
