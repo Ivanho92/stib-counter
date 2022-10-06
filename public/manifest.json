@@ -3,19 +3,9 @@
   "name": "STIB Travels Counter",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo-stib.png",
+      "src": "favicon256.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo-stib.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "256x256"
     }
   ],
   "start_url": ".",
