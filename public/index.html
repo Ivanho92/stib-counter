@@ -6,7 +6,7 @@
 	<link rel="icon" href="%PUBLIC_URL%/favicon256.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#000000" />
-	<meta name="description" content="Web site created using create-react-app" />
+	<meta name="description" content="Simple web app made to track your public transport travels." />
 	<link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon256.png" />
 	<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 	<title>STIB Counter</title>
@@ -14,12 +14,11 @@
 	<script>
 		window.addEventListener("load", () => {
 			if ("serviceWorker" in navigator) {
-				navigator.serviceWorker.register("%PUBLIC_URL%/sw.js")
-					.then(register => console.log("Success: ", register))
-					.catch(error => console.log("Error: ", error));
+				navigator.serviceWorker.register("%PUBLIC_URL%/service-worker.js")
+					// .then(register => console.log(`%c✓ ServiceWorker successfully registered => ${register.scope}`, "background-color: green"))
+					// .catch(error => console.error(error));
 			}
 		})
-
 	</script>
 </head>
 

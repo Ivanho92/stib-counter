@@ -1,9 +1,10 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import { Box, Typography, Container } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const Footer = () => {
+    const theme = useTheme();
+
     return (
         <Box
             component="footer"
@@ -11,11 +12,18 @@ const Footer = () => {
                 mt: 4,
                 py: 3,
                 px: 2,
-                backgroundColor: (theme) => (theme.palette.mode === "light" ? theme.palette.grey[200] : theme.palette.grey[800]),
+                backgroundColor: theme.palette.mode === "light" ? theme.palette.secondary.shade : theme.palette.grey[800],
             }}>
             <Container maxWidth="md">
                 <Typography align="center" variant="body1">
-                    Made with ❤️ by <a target="_blank" rel="noreferrer" href="https://ivan-rodrigues.com">Ivan Rodrigues</a>
+                    Made with <span style={{ color: theme.palette.primary.main }}>&lt;3</span> by{" "}
+                    <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href="https://ivan-rodrigues.com"
+                        style={{ textDecoration: "none", color: theme.palette.primary.main }}>
+                        Ivan Rodrigues
+                    </a>
                 </Typography>
             </Container>
         </Box>
