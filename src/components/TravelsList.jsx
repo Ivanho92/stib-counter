@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { TravelsContext } from "../store/travels-context";
+import { useTheme } from "@mui/material/styles";
 
 import { Box, Chip, Button, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
-import Paper from '@mui/material/Paper'
+import Paper from "@mui/material/Paper";
 
 const TravelsList = () => {
     const { travelsList, setTravelsList } = useContext(TravelsContext);
+
+    const theme = useTheme();
 
     const deleteHandler = (index) => {
         setTravelsList((prevState) => {
@@ -23,7 +26,7 @@ const TravelsList = () => {
                 </Typography>
                 <Box display="flex" gap={1} alignItems="center">
                     <Typography variant="body1">Total : </Typography>
-                    <Chip label={`${travelsList.length}`} />
+                    <Chip sx={{ backgroundColor: theme.palette.primary.main, color: "white" }} label={`${travelsList.length}`} />
                 </Box>
             </Box>
 
