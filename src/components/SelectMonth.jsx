@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { TravelsContext } from "../store/travels-context";
+import React from "react";
 
 import dayjs from "dayjs";
 
@@ -7,7 +6,6 @@ import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const SelectMonth = ({ fullWidth, month, onMonthChange, monthsList }) => {
   const monthChangeHandler = (e) => {
-    // console.log(e.target.value);
     onMonthChange(e.target.value);
   };
 

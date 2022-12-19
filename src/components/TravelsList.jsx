@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { TravelsContext } from "../store/travels-context";
 import SelectMonth from "./SelectMonth";
+import SelectYear from "./SelectYear";
 
 import dayjs from "dayjs";
 
@@ -29,6 +30,12 @@ const TravelsList = () => {
     ),
   ];
 
+  const yearsList = [
+    ...new Set(
+      travelsList.map((item) => dayjs(item, "DD/MM/YYYY - HH:mm").format("YYYY")),
+    ),
+  ];
+
   const [filterYear, setFilterYear] = useState(dayjs().format("YYYY"));
   const [filterMonth, setFilterMonth] = useState(dayjs().format("MM"));
 
@@ -51,12 +58,18 @@ const TravelsList = () => {
   });
 
   console.log("travelsList", travelsList);
+  console.log("monthsList", monthsList);
+  console.log("yearsList", yearsList);
   console.log("filterMonth", filterMonth);
   console.log("filterYear", filterYear);
   console.log("filteredTravelsList", filteredTravelsList);
 
   const changeMonth = (value) => {
     setFilterMonth(value);
+  };
+
+  const changeYear = (value) => {
+    setFilterYear(value);
   };
 
   return (
@@ -92,7 +105,12 @@ const TravelsList = () => {
           onMonthChange={changeMonth}
           monthsList={monthsList}
         />
-        {/* <SelectYear fullWidth={!matchesTabletSize} /> */}
+        <SelectYear
+          fullWidth={!matchesTabletSize}
+          year={filterYear}
+          onYearChange={changeYear}
+          yearsList={yearsList}
+        />
       </Box>
 
       <TableContainer component={Paper}>

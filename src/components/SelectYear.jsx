@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
-import { TravelsContext } from "../store/travels-context";
+import React from "react";
 
 import dayjs from "dayjs";
 
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-const SelectYear = ({ fullWidth }) => {
-  const { dateObjects } = useContext(TravelsContext);
-
-  const years = dateObjects.map((item) => dayjs(item).format("YYYY"));
-  const uniqueYears = [...new Set(years)];
+const SelectYear = ({ fullWidth, year, onYearChange, yearsList }) => {
+  const yearChangeHandler = (e) => {
+    onYearChange(e.target.value);
+  };
 
   return (
     <Box>
@@ -18,10 +16,10 @@ const SelectYear = ({ fullWidth }) => {
         <Select
           labelId="select-year-label"
           id="select-year"
-          value={dayjs(dateObjects[0]).format("YYYY")}
+          value={year}
           label="Year"
-          onChange={() => {}}>
-          {uniqueYears.map((year, index) => (
+          onChange={yearChangeHandler}>
+          {yearsList.map((year, index) => (
             <MenuItem key={`y-${index}`} value={year}>
               {year}
             </MenuItem>
