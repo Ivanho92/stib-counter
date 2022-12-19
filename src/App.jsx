@@ -10,24 +10,23 @@ import Header from "./components/Header";
 import ThemeProvider from "./store/mui-theme-provider";
 
 const App = () => {
-    return (
-        <ThemeProvider>
-            <Container component="main" maxWidth="md">
-                <Stack spacing={3}>
-                    <Header />
+  return (
+    <ThemeProvider>
+      <Container component="main" maxWidth="md">
+        <Stack spacing={3}>
+          <Header />
 
-                    <TravelsContextProvider>
-                        <Form />
+          <TravelsContextProvider>
+            <Form />
+            <Divider />
+            <TravelsList />
+          </TravelsContextProvider>
+        </Stack>
+      </Container>
 
-                        <Divider />
-                        <TravelsList />
-                    </TravelsContextProvider>
-                </Stack>
-            </Container>
-
-            <Footer />
-        </ThemeProvider>
-    );
+      <Footer />
+    </ThemeProvider>
+  );
 };
 
 export default App;
