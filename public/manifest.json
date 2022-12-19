@@ -1,6 +1,6 @@
 {
-  "short_name": "STIB Counter",
-  "name": "STIB Travels Counter",
+  "short_name": "Travels Counter",
+  "name": "Travels Counter",
   "icons": [
     {
       "src": "favicon32.png",
@@ -11,7 +11,7 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     }
   ],
   "start_url": ".",
