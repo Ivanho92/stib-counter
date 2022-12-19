@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { TravelsContext } from "../store/travels-context";
+import { useState } from "react";
 
 import dayjs from "dayjs";
 import { Box, TextField, Button } from "@mui/material";
@@ -10,7 +9,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import styles from "./Form.module.css";
+import styles from "./AddNewTravelForm.module.css";
 
 const dateTimeFormat = "DD/MM/YYYY - HH:mm";
 
@@ -22,8 +21,8 @@ const isDateValid = (dateTimeValue) => {
   return true;
 };
 
-const Form = () => {
-  const { setTravelsList } = useContext(TravelsContext);
+const AddNewTravelForm = ({ onAddNewTravel }) => {
+  // const { setTravelsList } = useContext(TravelsContext);
 
   const theme = useTheme();
   const matchesTabletSize = useMediaQuery(theme.breakpoints.up("tablet"));
@@ -61,7 +60,7 @@ const Form = () => {
       resetForm();
     }
 
-    setTravelsList((prevState) => [value.format(dateTimeFormat), ...prevState]);
+    onAddNewTravel(value);
   };
 
   const changeHandler = (newValue) => {
@@ -107,7 +106,6 @@ const Form = () => {
             flexGrow: 1,
             width: matchesTabletSize ? "auto" : "100%",
             flexDirection: matchesTabletSize ? "row" : "column",
-            // justifyContent: "space-between",
             alignItems: "start",
             flexWrap: "wrap",
             gap: "1rem",
@@ -156,4 +154,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default AddNewTravelForm;

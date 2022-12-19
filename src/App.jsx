@@ -1,12 +1,11 @@
 import React from "react";
-import TravelsContextProvider from "./store/travels-context";
+// import TravelsContextProvider from "./store/travels-context";
 
-import { Stack, Container, Divider } from "@mui/material";
+import { Stack, Container } from "@mui/material";
 
-import Footer from "./components/Footer";
-import Form from "./components/Form";
-import TravelsList from "./components/TravelsList";
-import Header from "./components/Header";
+import Footer from "./components/Footer/Footer";
+import Travels from "./components/Travels/Travels";
+import Header from "./components/Header/Header";
 import ThemeProvider from "./store/mui-theme-provider";
 
 const App = () => {
@@ -15,15 +14,9 @@ const App = () => {
       <Container component="main" maxWidth="md">
         <Stack spacing={3}>
           <Header />
-
-          <TravelsContextProvider>
-            <Form />
-            <Divider />
-            <TravelsList />
-          </TravelsContextProvider>
+          <Travels />
         </Stack>
       </Container>
-
       <Footer />
     </ThemeProvider>
   );

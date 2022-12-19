@@ -1,7 +1,5 @@
 import React from "react";
 
-import dayjs from "dayjs";
-
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const SelectYear = ({ fullWidth, year, onYearChange, yearsList }) => {

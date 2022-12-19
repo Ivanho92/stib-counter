@@ -1,0 +1,48 @@
+import React from "react";
+
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from "@mui/material";
+import Paper from "@mui/material/Paper";
+
+import dayjs from "dayjs";
+
+const TravelsList = ({ items, onDeleteTravel }) => {
+  const deleteHandler = (index) => {
+    onDeleteTravel(index);
+  };
+
+  return (
+    <TableContainer component={Paper}>
+      <Table size="small" aria-label="simple table">
+        <TableBody>
+          {items.map((row, index) => (
+            <TableRow
+              hover
+              key={index}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell scope="row">
+                {dayjs(row).format("DD/MM/YYYY - HH:mm")}
+              </TableCell>
+              <TableCell align="right">
+                <Button color="error" onClick={() => deleteHandler(index)}>
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    // {filteredTravelsList.length === 0 && (
+    //   <Typography align="center">No travels :(</Typography>
+    // )}
+  );
+};
+
+export default TravelsList;
