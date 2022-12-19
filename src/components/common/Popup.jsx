@@ -6,7 +6,7 @@ import styles from "./Popup.module.css";
 
 const Popup = ({ status, message, onPopupClose }) => {
   return (
-    <Box className={styles.popupContainer}>
+    <Box className={styles.popupContainer} onClick={onPopupClose}>
       <Stack
         spacing={1}
         className={`${styles.popup} ${status && styles[`popup-${status}`]}`}>

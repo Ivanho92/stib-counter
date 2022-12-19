@@ -22,6 +22,8 @@ const Travels = () => {
       const newArr = [+dayjs(newTravel), ...prevTravels];
       return newArr.sort((x, y) => y - x);
     });
+
+    setShowConfirmation({ status: "success", message: "Successfully added ✔" });
   };
 
   const deleteTravelHandler = (timestamp) => {
@@ -30,8 +32,7 @@ const Travels = () => {
       return newArr;
     });
 
-    setShowConfirmation(true);
-    setTimeout(() => setShowConfirmation(false), 5000);
+    setShowConfirmation({ status: "success", message: "Successfully deleted ✔" });
   };
 
   const yearChangeHandler = (newYearValue) => setYear(newYearValue);
@@ -74,10 +75,10 @@ const Travels = () => {
         onMonthChange={monthChangeHandler}
       />
       <TravelsList items={filteredTravels} onDeleteTravel={deleteTravelHandler} />
-      {showConfirmation && (
+      {showConfirmation?.status && (
         <Popup
-          status="success"
-          message="Successfully deleted ✔"
+          status={showConfirmation.status}
+          message={showConfirmation.message}
           onPopupClose={() => setShowConfirmation(false)}
         />
       )}
