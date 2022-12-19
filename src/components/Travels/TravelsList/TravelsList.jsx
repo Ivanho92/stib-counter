@@ -13,8 +13,8 @@ import Paper from "@mui/material/Paper";
 import dayjs from "dayjs";
 
 const TravelsList = ({ items, onDeleteTravel }) => {
-  const deleteHandler = (index) => {
-    onDeleteTravel(index);
+  const deleteHandler = (timestamp) => {
+    onDeleteTravel(timestamp);
   };
 
   return (
@@ -30,7 +30,7 @@ const TravelsList = ({ items, onDeleteTravel }) => {
                 {dayjs(row).format("DD/MM/YYYY - HH:mm")}
               </TableCell>
               <TableCell align="right">
-                <Button color="error" onClick={() => deleteHandler(index)}>
+                <Button color="error" onClick={() => deleteHandler(row)}>
                   Delete
                 </Button>
               </TableCell>

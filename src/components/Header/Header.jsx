@@ -5,27 +5,32 @@ import { useTheme } from "@mui/material/styles";
 import styles from "./Header.module.css";
 
 const Header = () => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    return (
+  return (
+    <Box
+      sx={{
+        mt: 4,
+      }}>
+      {!navigator.onLine && (
+        <Typography variant="body2" color={theme.palette.secondary.main}>
+          Offline Mode
+        </Typography>
+      )}
+      <Typography variant="h1" color="inherit" sx={{ fontSize: "3.052rem" }}>
         <Box
-            sx={{
-                mt: 4,
-            }}>
-            {!navigator.onLine && (
-                <Typography variant="body2" color={theme.palette.secondary.main}>
-                    Offline Mode
-                </Typography>
-            )}
-            <Typography variant="h1" color="inherit" sx={{ fontSize: "3.052rem" }}>
-                STIB Travels{" "}
-                <span style={{ whiteSpace: "nowrap" }}>
-                    Counter&nbsp;
-                    <img src="/logo-stib.png" alt="STIB logo" className={styles.logo} />
-                </span>
-            </Typography>
+          sx={{
+            display: "flex",
+            gap: ".5rem",
+            flexWrap: "nowrap",
+            alignItems: "center",
+          }}>
+          <span>Travels Counter</span>
+          <img src="/logo512.png" alt="" className={styles.logo} />
         </Box>
-    );
+      </Typography>
+    </Box>
+  );
 };
 
 export default Header;

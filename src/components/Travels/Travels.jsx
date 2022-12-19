@@ -12,6 +12,7 @@ import SelectPeriod from "./SelectPeriod/SelectPeriod";
 const Travels = () => {
   const [travels, setTravels] = useState([]);
   const [year, setYear] = useState(dayjs().format("YYYY"));
+  const [month, setMonth] = useState(dayjs().format("MM"));
 
   const addTravelHandler = (newTravel) => {
     setTravels((prevTravels) => {
@@ -20,15 +21,20 @@ const Travels = () => {
     });
   };
 
-  const deleteTravelHandler = (index) => {
+  const deleteTravelHandler = (timestamp) => {
     setTravels((prevTravels) => {
-      const newArr = [...prevTravels];
-      newArr.splice(index, 1);
+      console.log(prevTravels, timestamp);
+
+      const newArr = [...prevTravels].filter((item) => item !== timestamp);
+
+      console.log(newArr);
+
       return newArr;
     });
   };
 
   const yearChangeHandler = (newYearValue) => setYear(newYearValue);
+  const monthChangeHandler = (newMonthValue) => setMonth(newMonthValue);
 
   useEffect(() => {
     const data = localStorage.getItem("travelsList");
@@ -42,17 +48,19 @@ const Travels = () => {
 
   useEffect(() => {
     setYear(dayjs(travels[0]).format("YYYY"));
+    setMonth(dayjs(travels[0]).format("MM"));
   }, [travels]);
 
-  // Provide a list of years without duplicates
+  // Provide a list of years/months without duplicates
   const yearsList = [...new Set(travels.map((t) => dayjs(t).format("YYYY")))];
+  const monthsList = [...new Set(travels.map((t) => dayjs(t).format("MM")))];
 
   const filteredTravels = travels.filter((t) => {
-    return dayjs(t).format("YYYY") === year;
+    return dayjs(t).format("YYYY") === year && dayjs(t).format("MM") === month;
   });
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       <AddNewTravelForm onAddNewTravel={addTravelHandler} />
       <Divider />
       <TravelsHeader itemsTotal={filteredTravels.length} />
@@ -60,6 +68,9 @@ const Travels = () => {
         year={year}
         yearsList={yearsList}
         onYearChange={yearChangeHandler}
+        month={month}
+        monthsList={monthsList}
+        onMonthChange={monthChangeHandler}
       />
       <TravelsList items={filteredTravels} onDeleteTravel={deleteTravelHandler} />
     </Stack>

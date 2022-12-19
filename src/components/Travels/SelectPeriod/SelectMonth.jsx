@@ -21,7 +21,7 @@ const SelectMonth = ({ fullWidth, month, onMonthChange, monthsList }) => {
           onChange={monthChangeHandler}>
           {monthsList.map((month, index) => (
             <MenuItem key={`m-${index}`} value={month}>
-              {dayjs(month, "MM").format("MMMM")}
+              {dayjs(month).format("MMMM")}
             </MenuItem>
           ))}
         </Select>
