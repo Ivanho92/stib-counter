@@ -8,11 +8,14 @@ import TravelsHeader from "./TravelsHeader/TravelsHeader";
 import TravelsList from "./TravelsList/TravelsList";
 import AddNewTravelForm from "./AddNewTravelForm/AddNewTravelForm";
 import SelectPeriod from "./SelectPeriod/SelectPeriod";
+import Popup from "../common/Popup";
 
 const Travels = () => {
   const [travels, setTravels] = useState([]);
   const [year, setYear] = useState(dayjs().format("YYYY"));
   const [month, setMonth] = useState(dayjs().format("MM"));
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const addTravelHandler = (newTravel) => {
     setTravels((prevTravels) => {
@@ -23,14 +26,12 @@ const Travels = () => {
 
   const deleteTravelHandler = (timestamp) => {
     setTravels((prevTravels) => {
-      console.log(prevTravels, timestamp);
-
       const newArr = [...prevTravels].filter((item) => item !== timestamp);
-
-      console.log(newArr);
-
       return newArr;
     });
+
+    setShowConfirmation(true);
+    setTimeout(() => setShowConfirmation(false), 5000);
   };
 
   const yearChangeHandler = (newYearValue) => setYear(newYearValue);
@@ -73,6 +74,13 @@ const Travels = () => {
         onMonthChange={monthChangeHandler}
       />
       <TravelsList items={filteredTravels} onDeleteTravel={deleteTravelHandler} />
+      {showConfirmation && (
+        <Popup
+          status="success"
+          message="Successfully deleted ✔"
+          onPopupClose={() => setShowConfirmation(false)}
+        />
+      )}
     </Stack>
   );
 };

@@ -14,6 +14,9 @@ const theme = createTheme({
     error: {
       main: "#EF3E42",
     },
+    success: {
+      main: "#bcffbe",
+    },
   },
   breakpoints: {
     values: {
