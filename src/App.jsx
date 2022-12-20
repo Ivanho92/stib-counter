@@ -23,6 +23,4 @@ const App = () => {
 
 export default App;
 
-// TODO setTimeout for popup container
-// TODO use portals for popup
 // TODO animate popup
