@@ -23,6 +23,8 @@ const Travels = () => {
       return newArr.sort((x, y) => y - x);
     });
 
+    setYear(dayjs(newTravel).format("YYYY"));
+    setMonth(dayjs(newTravel).format("MM"));
     setShowConfirmation({ status: "success", message: "Successfully added ✔" });
   };
 
@@ -32,6 +34,8 @@ const Travels = () => {
       return newArr;
     });
 
+    setYear(dayjs(travels[0]).format("YYYY"));
+    setMonth(dayjs(travels[0]).format("MM"));
     setShowConfirmation({ status: "success", message: "Successfully deleted ✔" });
   };
 
@@ -46,11 +50,6 @@ const Travels = () => {
   useEffect(() => {
     const data = JSON.stringify(travels);
     localStorage.setItem("travelsList", data);
-  }, [travels]);
-
-  useEffect(() => {
-    setYear(dayjs(travels[0]).format("YYYY"));
-    setMonth(dayjs(travels[0]).format("MM"));
   }, [travels]);
 
   // Provide a list of years/months without duplicates
