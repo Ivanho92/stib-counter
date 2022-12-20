@@ -7,6 +7,7 @@ import {
   TableCell,
   TableContainer,
   TableRow,
+  Typography,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
@@ -18,30 +19,32 @@ const TravelsList = ({ items, onDeleteTravel }) => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table size="small" aria-label="simple table">
-        <TableBody>
-          {items.map((row, index) => (
-            <TableRow
-              hover
-              key={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell scope="row">
-                {dayjs(row).format("DD/MM/YYYY - HH:mm")}
-              </TableCell>
-              <TableCell align="right">
-                <Button color="error" onClick={() => deleteHandler(row)}>
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    // {filteredTravelsList.length === 0 && (
-    //   <Typography align="center">No travels :(</Typography>
-    // )}
+    <>
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="simple table">
+          <TableBody>
+            {items.map((row, index) => (
+              <TableRow
+                hover
+                key={index}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell scope="row">
+                  {dayjs(row).format("DD/MM/YYYY - HH:mm")}
+                </TableCell>
+                <TableCell align="right">
+                  <Button color="error" onClick={() => deleteHandler(row)}>
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {items.length === 0 && (
+        <Typography align="center">No travels found :(</Typography>
+      )}
+    </>
   );
 };
 

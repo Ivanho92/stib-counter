@@ -22,3 +22,5 @@ const App = () => {
 };
 
 export default App;
+
+// TODO fix the popup container on mobile devices
