@@ -1,10 +1,9 @@
 .popupContainer {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.2);
   margin-top: 0 !important;
 }
 
@@ -12,16 +11,24 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  max-width: 300px;
+  width: 80%;
+  max-width: 450px;
   top: 20px;
   text-align: center;
 
-  padding: 1rem 1rem;
   border-radius: 5px;
   border: 3px solid black;
+
+  box-shadow: 0px 2px 10px 0px rgb(0 0 0 / 23%);
 }
 
 .popup-success {
-  border-color: #65e474;
+  border-color: hsl(127, 70%, 45%);
   background-color: #bcffbe;
+}
+
+.closeModal {
+  /* position: absolute; */
+  top: calc(50% - 16px);
+  right: 10px;
 }
