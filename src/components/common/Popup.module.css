@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   margin-top: 0 !important;
+  z-index: 999;
 }
 
 .popup {

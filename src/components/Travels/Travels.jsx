@@ -10,6 +10,9 @@ import AddNewTravelForm from "./AddNewTravelForm/AddNewTravelForm";
 import SelectPeriod from "./SelectPeriod/SelectPeriod";
 import Popup from "../common/Popup";
 
+const getYear = (timestamp) => dayjs(timestamp).format("YYYY");
+const getMonth = (timestamp) => dayjs(timestamp).format("MM");
+
 const Travels = () => {
   const [travels, setTravels] = useState([]);
   const [year, setYear] = useState(dayjs().format("YYYY"));
@@ -23,19 +26,29 @@ const Travels = () => {
       return newArr.sort((x, y) => y - x);
     });
 
-    setYear(dayjs(newTravel).format("YYYY"));
-    setMonth(dayjs(newTravel).format("MM"));
+    setYear(getYear(newTravel));
+    setMonth(getMonth(newTravel));
     setShowConfirmation({ status: "success", message: "Successfully added ✔" });
   };
 
   const deleteTravelHandler = (timestamp) => {
     setTravels((prevTravels) => {
       const newArr = [...prevTravels].filter((item) => item !== timestamp);
+
+      if (
+        !newArr.find(
+          (item) =>
+            getYear(item) === getYear(timestamp) &&
+            getMonth(item) === getMonth(timestamp),
+        )
+      ) {
+        setYear(getYear(newArr[0]));
+        setMonth(getMonth(newArr[0]));
+      }
+
       return newArr;
     });
 
-    setYear(dayjs(travels[0]).format("YYYY"));
-    setMonth(dayjs(travels[0]).format("MM"));
     setShowConfirmation({ status: "success", message: "Successfully deleted ✔" });
   };
 
@@ -53,11 +66,11 @@ const Travels = () => {
   }, [travels]);
 
   // Provide a list of years/months without duplicates
-  const yearsList = [...new Set(travels.map((t) => dayjs(t).format("YYYY")))];
-  const monthsList = [...new Set(travels.map((t) => dayjs(t).format("MM")))];
+  const yearsList = [...new Set(travels.map((t) => getYear(t)))];
+  const monthsList = [...new Set(travels.map((t) => getMonth(t)))];
 
   const filteredTravels = travels.filter((t) => {
-    return dayjs(t).format("YYYY") === year && dayjs(t).format("MM") === month;
+    return getYear(t) === year && getMonth(t) === month;
   });
 
   return (

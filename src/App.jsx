@@ -23,7 +23,6 @@ const App = () => {
 
 export default App;
 
-// TODO after adding a travel, switch current month and year to that new date
 // TODO setTimeout for popup container
 // TODO use portals for popup
 // TODO animate popup
