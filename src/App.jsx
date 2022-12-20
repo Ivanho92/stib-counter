@@ -22,5 +22,3 @@ const App = () => {
 };
 
 export default App;
-
-// TODO animate popup

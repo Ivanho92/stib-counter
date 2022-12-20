@@ -10,6 +10,8 @@ import AddNewTravelForm from "./AddNewTravelForm/AddNewTravelForm";
 import SelectPeriod from "./SelectPeriod/SelectPeriod";
 import Popup from "../common/Popup";
 
+import Transition from "react-transition-group/Transition";
+
 const getYear = (timestamp) => dayjs(timestamp).format("YYYY");
 const getMonth = (timestamp) => dayjs(timestamp).format("MM");
 
@@ -18,7 +20,7 @@ const Travels = () => {
   const [year, setYear] = useState(dayjs().format("YYYY"));
   const [month, setMonth] = useState(dayjs().format("MM"));
 
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState({ show: false });
 
   const addTravelHandler = (newTravel) => {
     setTravels((prevTravels) => {
@@ -28,7 +30,11 @@ const Travels = () => {
 
     setYear(getYear(newTravel));
     setMonth(getMonth(newTravel));
-    setShowConfirmation({ status: "success", message: "Successfully added ✔" });
+    setShowConfirmation({
+      show: true,
+      status: "success",
+      message: "Successfully added ✔",
+    });
   };
 
   const deleteTravelHandler = (timestamp) => {
@@ -49,7 +55,11 @@ const Travels = () => {
       return newArr;
     });
 
-    setShowConfirmation({ status: "success", message: "Successfully deleted ✔" });
+    setShowConfirmation({
+      show: true,
+      status: "success",
+      message: "Successfully deleted ✔",
+    });
   };
 
   const yearChangeHandler = (newYearValue) => setYear(newYearValue);
@@ -87,13 +97,22 @@ const Travels = () => {
         onMonthChange={monthChangeHandler}
       />
       <TravelsList items={filteredTravels} onDeleteTravel={deleteTravelHandler} />
-      {showConfirmation?.status && (
-        <Popup
-          status={showConfirmation.status}
-          message={showConfirmation.message}
-          onPopupClose={() => setShowConfirmation(false)}
-        />
-      )}
+      <Transition
+        mountOnEnter
+        unmountOnExit
+        in={showConfirmation.show}
+        timeout={200}>
+        {(state) => (
+          <Popup
+            transitionState={state}
+            status={showConfirmation.status}
+            message={showConfirmation.message}
+            onPopupClose={() =>
+              setShowConfirmation((prevState) => ({ ...prevState, show: false }))
+            }
+          />
+        )}
+      </Transition>
     </Stack>
   );
 };

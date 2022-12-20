@@ -8,16 +8,24 @@ import styles from "./Popup.module.css";
 
 const popupPlaceholderEl = document.getElementById("popup-placeholder");
 
-const Popup = ({ status, message, onPopupClose }) => {
+const Popup = ({ status, message, onPopupClose, transitionState }) => {
   useEffect(() => {
     const timeout = setTimeout(() => onPopupClose(), 3000);
 
     return () => clearTimeout(timeout);
   }, [onPopupClose]);
 
+  const popupState =
+    transitionState === "entering" || transitionState === "entered"
+      ? "opened"
+      : "closed";
+
   const renderedPopup = (
     <Box className={styles.popupContainer} onClick={onPopupClose}>
-      <div className={`${styles.popup} ${status && styles[`popup-${status}`]}`}>
+      <div
+        className={`${styles.popup} ${styles[`popup-${status}`]} ${
+          styles[`popup-${popupState}`]
+        }`}>
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <IconButton
             className={styles.closeModal}
